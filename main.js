@@ -6,12 +6,22 @@ canvas.width = window.innerWidth;
 
 var c = canvas.getContext('2d');
 
+var mouse = {
+    x: undefined,
+    y: undefined
+}
+
+window.addEventListener('mousemove', function(event) {
+    mouse.x = event.x;
+    mouse.y = event.y;
+    console.log(mouse.x);
+});
+
 function randomColor(){
     var color = ['red', 'blue', 'yellow', 'black', 'grey', 'green', 'orange']; 
     var strokeStyle = color[Math.floor(Math.random() * color.length)]; 
     return strokeStyle;
 }
-
 
 //random circles
 for (let i = 0; i < 1; i++) {
@@ -49,12 +59,17 @@ function Circle(x,y,dx,dy,radius){
         }
         this.x += this.dx;
         this.y += this.dy;
+        
+        if (mouse.x - this.x < 50){
+            this.radius+= 1;
+        }
+
         this.draw();
     }
 }
 var circles = [];
 
-for (let i = 0; i < 500; i++) {
+for (let i = 0; i < 20; i++) {
     var radius = 40;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y = Math.random() * (innerHeight - radius * 2) + radius;
@@ -91,4 +106,6 @@ animate();
 //     c.stroke();
 //     //random strokes
 // }
-
+var canvas = document.querySelector("canvas");
+var x;
+var y;
