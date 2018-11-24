@@ -1,10 +1,23 @@
 var canvas = document.querySelector('canvas');
-console.log(canvas);
+var slider = document.querySelector("#slider");
+var amount = document.querySelector(".amount")
 
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
 var c = canvas.getContext('2d');
+var hideCircles = true;
+var circles = [];
+var amountOfCircles = 500;
+amount.innerHTML = "Amount of cicrcles: " + amountOfCircles;
+
+//function is called when slider value changes
+slider.addEventListener("change", function() { 
+console.log("test");
+  amountOfCircles = slider.value * 10; 
+  amount.innerHTML = "Amount of cicrcles: " + amountOfCircles;
+  init();
+})
 
 var mouse = {
     x: undefined,
@@ -19,7 +32,6 @@ window.addEventListener('mousemove', function(event) {
 window.addEventListener('resize', function(){
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
-    
     init()
 });
 
@@ -34,12 +46,10 @@ toggle.addEventListener('click', function(){
     }
 });
 
-var hideCircles = true;
-var circles = [];
 
 function init() {
     circles = [];
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < amountOfCircles; i++) {
         var radius = Math.random() * 5 + 5 ;
         var x = Math.random() * (innerWidth - radius * 2) + radius;
         var y = Math.random() * (innerHeight - radius * 2) + radius;
