@@ -14,7 +14,6 @@ var mouse = {
 window.addEventListener('mousemove', function(event) {
     mouse.x = event.x;
     mouse.y = event.y;
-    console.log(mouse.x);
 });
 
 window.addEventListener('resize', function(){
@@ -24,7 +23,18 @@ window.addEventListener('resize', function(){
     init()
 });
 
+var toggle = document.querySelector(".toggle");
+toggle.addEventListener('click', function(){
+    console.log("toggle");
+    hideCircles = !hideCircles;
+    if(hideCircles === true){
+        toggle.innerHTML = "Show outside circles"
+    } else {
+        toggle.innerHTML = "Hide outside circles"
+    }
+});
 
+var hideCircles = true;
 var circles = [];
 
 function init() {
@@ -55,7 +65,8 @@ function Circle(x,y,dx,dy,radius){
     this.dy = dy;
     this.radius = radius;
     this.minRadius = radius;
-    this.color = randomColor();
+    this.color = '#ffffff00';
+    this.hoverColor = randomColor();
 
     this.draw = function(){
         c.beginPath();
@@ -74,14 +85,21 @@ function Circle(x,y,dx,dy,radius){
         this.x += this.dx;
         this.y += this.dy;
         
-        if (mouse.x - this.x < 50 && mouse.x - this.x > -50
-            && mouse.y - this.y < 50 && mouse.y - this.y > -50){
+        if (mouse.x - this.x < 100 && mouse.x - this.x > -100
+            && mouse.y - this.y < 100 && mouse.y - this.y > -100){
+            this.color = this.hoverColor;
             if(this.radius < 70){
                 this.radius+= 2;
             }
         }
         else if(this.radius > this.minRadius){
             this.radius -= 1;
+        }else{
+            this.color = '#ffffff00';
+        }
+
+        if(hideCircles == false){
+            this.color = this.hoverColor;
         }
 
         this.draw();
