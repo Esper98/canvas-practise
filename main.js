@@ -75,6 +75,7 @@ function Circle(x,y,dx,dy,radius){
     this.dy = dy;
     this.radius = radius;
     this.minRadius = radius;
+    this.maxRadius = Math.random() * 100 + radius;
     this.color = '#ffffff00';
     this.hoverColor = randomColor();
 
@@ -98,7 +99,7 @@ function Circle(x,y,dx,dy,radius){
         if (mouse.x - this.x < 100 && mouse.x - this.x > -100
             && mouse.y - this.y < 100 && mouse.y - this.y > -100){
             this.color = this.hoverColor;
-            if(this.radius < 70){
+            if(this.radius < this.maxRadius){
                 this.radius+= 2;
             }
         }
